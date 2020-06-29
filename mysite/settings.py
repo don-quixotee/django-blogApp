@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-import dj_database_url
 import os
-import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -47,7 +45,7 @@ INSTALLED_APPS = [
     'froala_editor',
     'crispy_forms',
     'django.contrib.postgres',
-    'boto',
+    
       'whitenoise.runserver_nostatic' ,
 
     
@@ -186,4 +184,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 
-django_heroku.settings(locals())
