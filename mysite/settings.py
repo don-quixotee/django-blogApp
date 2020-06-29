@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-import os
 
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,9 +25,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media' )
 SECRET_KEY = 'z@ke35=+xw52%azu9px%l1_yldfqo^g-=u7$+^_w9xkwww_6q4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'froala_editor',
     'crispy_forms',
     'django.contrib.postgres',
-    
-      'whitenoise.runserver_nostatic' ,
 
     
 ]
@@ -59,7 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -92,16 +89,11 @@ DATABASES = {
         'NAME': 'blog',
         'USER':'admin1',
         'PASSWORD':'3311',
-        'HOST':'localhost',
+        'HOST':'127.0.0.1',
         'PORT':'5432',
 
     }
 }
-
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
-
-
 
 
 # Password validation
@@ -143,14 +135,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-STATICFILES_DIR = [
-    os.path.join(BASE_DIR,'static'),
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_DIR = [
+#     os.path.join(BASE_DIR,'static')
+# ]
 
 
 
@@ -178,9 +165,3 @@ AUTHENTICATION_BACKENDS =[
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-
-
-
-
