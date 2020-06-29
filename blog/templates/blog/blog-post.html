@@ -13,7 +13,7 @@
 {% endblock %}
 
 <div id="article">
-    <h1 style="text-align: center; font-family: 'Krona One', sans-serif;">{{post.title}}</h1>
+    <h1 style="text-align: center;">{{post.title}}</h1>
     <hr>
     <br>
 
@@ -95,7 +95,7 @@
                     alt="avatar image">
 
                     {% endif %} {{ comment.created_date }} by:
-                    <strong>{{ comment.author }}</strong>{{ comment.content|linebreaks }}  <a href="{% url 'commentDelete' comment.id %}"><i class="fa fa-trash"></i></a></div>
+                    <strong>{{ comment.author }}</strong>{{ comment.content|linebreaks }} {% if request.user == comment.author %} <a href="{% url 'commentDelete' comment.id %}"><i class="fa fa-trash"></i></a>{% endif %}</div>
             </div>
             <hr>
             {% empty %}
