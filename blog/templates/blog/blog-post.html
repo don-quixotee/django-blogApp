@@ -1,0 +1,120 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+{% block extra_head %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@1,300&display=swap');
+
+</style>
+
+{% endblock %}
+
+<div id="article">
+    <h1 style="text-align: center; font-family: 'Krona One', sans-serif;">{{post.title}}</h1>
+    <hr>
+    <br>
+
+    <div class="blog-meta container">
+
+        {% if post.image %}
+        <img class="blog-image" src="{{post.image.url}}" style="height:auto;max-width:100%;border:none;display:block;" />
+        {% else %}
+        <img class="blog-image" src="https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" style="height:auto;max-width:100%;border:none;display:block;" />
+
+        
+        {% endif %}
+        <p style="text-align: center;" class="author"><a
+                href="{% url 'profile' pk=post.author.pk %}">{{post.author}}</a><span class="date"> |
+                {{post.published}}</span></p>
+
+    </div>
+
+    <div class="blog-content">
+        {% if request.user == post.author %}
+        <span><a href=" {% url 'update' post.slug %}"><button class="btn btn-outline-primary">update</button></a> <a
+                href="{% url 'delete' post.slug %}"><button class="btn btn-outline-dark">delete</button></a></span>
+{% endif %}
+        <br>
+
+        <div style="text-align: justify; font-family: 'Muli', sans-serif; ">{{post.content|safe}}</div>
+
+
+
+        <hr>
+        <div class="author-details">
+            <div class="author-pic">
+                {% if post.author.pic %}
+                <a href="{% url 'profile' pk=post.author.id %}"><img  src="{{post.author.pic.url}}" alt="" class="rounded-circle z-depth-0" width="70px" height="70px" /></a>
+                {% else %}
+                <a href="{% url 'profile' pk=post.author.id %}"><img  src="https://cdna.artstation.com/p/assets/images/images/009/048/744/large/rodion-vlasov-face1-2.jpg" alt="" class="rounded-circle z-depth-0" width="70px" height="70px" /></a>
+
+                <br>
+                {% endif %}
+            </div>
+            <div class="author-info">
+                <br>
+                <p class="author-name">{{post.author}}</p>
+                <p class="author-bio">{{post.author.bio}}</p>
+            </div>
+        </div>
+        <hr>
+        <br>
+
+
+
+
+        <div class="blog-response">
+            <h2>WRITE RESPONSE </h2>
+            <br>
+
+            <form method="POST">
+                {{form.as_p}}
+                {% csrf_token %}
+                <input class="btn btn-outline-secondary" type="submit" value=" response">
+            </form>
+        </div>
+        <hr>
+        <br>
+        <div style="width:100%;">
+            <h3> Responses from the other user</h3>
+
+            {% for comment in comment_form %}
+            <div class="comment">
+                <div class="date"> {% if comment.author.pic %}
+                    <img src="{{comment.author.pic.url}}" class="rounded-circle z-depth-0" width="42px" height="42px"
+                        alt="avatar image">
+
+                    {% else %}
+
+                    
+
+                    <img src="https://cdna.artstation.com/p/assets/images/images/009/048/744/large/rodion-vlasov-face1-2.jpg" class="rounded-circle z-depth-0" width="42px" height="42px"
+                    alt="avatar image">
+
+                    {% endif %} {{ comment.created_date }} by:
+                    <strong>{{ comment.author }}</strong>{{ comment.content|linebreaks }}  <a href="{% url 'commentDelete' comment.id %}"><i class="fa fa-trash"></i></a></div>
+            </div>
+            <hr>
+            {% empty %}
+            <p style="text-align:left">No comments here yet :(</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+</div>
+<hr>
+
+
+
+
+
+
+
+
+{% endblock %}

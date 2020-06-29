@@ -1,0 +1,16 @@
+
+{% extends 'blog/base.html' %}
+{% block content %}
+       <div class='post' >
+        <form class="post-create" method="POST" enctype='multipart/form-data'>
+            {{form.as_p}}
+            {% csrf_token %}
+            {{form.errors}}
+            
+            
+        
+            <input type="submit" value="Submit">
+        </form>
+
+       </div>
+{% endblock %}

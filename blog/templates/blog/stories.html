@@ -1,0 +1,161 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load blog_tags %}
+
+
+{% block content %}
+
+
+
+<div class="w3-content" style="max-width:1400px">
+
+ 
+    <h2 style="text-align: center;"><b>Welcome to myBlogger</b></h2>
+
+    <!-- Grid -->
+    <div class="w3-row">
+
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12">
+            <!-- Blog entry -->
+
+            <div class="wrapper">
+                <div class="main">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row header">
+                                    <h5 style="font-weight: bold;"> &nbsp;&nbsp;&nbsp;&nbsp; Latest blogs !</h5>
+                                </div>
+                                <hr class="space">
+
+
+
+                                {% for post in posts reversed %}
+
+
+                                <div class="row news" style="display: flex; margin-bottom:10px;">
+                                    <div class="col-7 blog-grid">
+                                        <h3>
+                                            <a style="text-decoration-color: none; text-decoration:none; color:black"
+                                                href="{% url 'post-detail' post.slug %}">{{post.title}}</a>
+                                        </h3>
+                                        <a class="content-a"
+                                            style="font-size: 14px; ">{{post.content|safe|truncatewords_html:10}} <a
+                                                style="background-color: black; color:white;"
+                                                href="{% url 'post-detail' post.slug %}">read more...</a></a>
+                                        <a>
+                                            by: {{post.author}}
+                                        </a>
+                                        <a style=" color:black; text-decoration:none"
+                                            href="{% url 'add-bookmark' post.pk %}">&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                                class="fa fa-bookmark "></i></a>
+
+
+
+                                        <!-- <img src="assets/img/download.svg" alt="" height="25" width="25" class="pull-right"> -->
+
+                                        <p>created:{{post.created}} </p>
+
+                                        <p style="padding-left: 0; margin-left:0;"><span class="w3 w3-left"><b>Comments
+                                                     </b> <span class="w3-tag">{{post.all_comments.count}}</span></span>
+                                        </p>
+                                    </div>
+                                    <div style="padding: 5%;" class="col-5 blog-grid">
+                                        {% if post.image %}
+                                        <a href="{% url 'post-detail' post.slug %}"> <img
+                                                style="max-height: 200px; max-width: 200px;  ;" src="{{post.image.url}}"
+                                                class="card-img-top" width="30%" alt="...">
+                                        </a>
+                                        {% else %}
+                                        <img src="https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                            class="card-img-top" alt="...">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- END BLOG ENTRIES -->
+        </div>
+
+        <!-- Introduction menu -->
+        <div style="top: 0; right:0;" class="w3-col l4">
+
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>choose from your faveroute category</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        {% for cat in category %}
+
+                        <a style="margin-top:1%;" class="w3-tag w3-black w3-margin-bottom"
+                            href="{% url 'post_by_category' cat.id %}">{{cat.name}}</a>
+                        {% endfor %}
+
+
+
+
+                    </p>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Posts -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Popular Posts</h4>
+                </div>
+
+                {% get_most_commented_posts as most_commented_posts %}
+                {% for post in most_commented_posts %}
+
+
+
+                <ul style="margin-bottom: 4px;" class="w3-ul w3-hoverable w3-white">
+                    <li class="w3-padding-16">
+                        {% if post.image %}
+                        <img src="{{post.image.url}}" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+                        {% else %}
+                        <a href="{% url 'post-detail' post.slug %}" <img
+                            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.havi.com%2Fhavis-response-covid-19&psig=AOvVaw29hBNDoy7KSpNTW8mCzeFk&ust=1591865868995000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCODl79Hw9ukCFQAAAAAdAAAAABAJ"
+                            class="card-img-top" alt="...">
+                            {% endif %}
+
+                            <span class="w3-large">{{post.title}}</span><br>
+                            <a style="text-decoration: none;"
+                                href="{% url 'post-detail' post.slug %}">{{post.content|safe|truncatewords_html:7}}</a>
+                            <p style="padding-left: 0; margin-left:0;"><span class=" w3-left"><b>Comments  </b> <span
+                                        class=" w3-small w3-tag">{{post.all_comments.count}}</span></span></p>
+                            <br>
+                    </li>
+
+                </ul>
+
+
+                {% endfor %}
+            </div>
+            <hr>
+
+            <!-- END Introduction Menu -->
+        </div>
+
+        <!-- END GRID -->
+    </div><br>
+
+    <!-- END w3-content -->
+</div>
+
+
+
+{% endblock %}

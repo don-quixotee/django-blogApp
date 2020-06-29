@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div style="display: flex; ">
+  <div style="width:60%; margin-left:3%; margin-right:3%">
+
+
+
+          {% for post in posts %}
+
+
+          <div class="row news" style="display: flex; flexwrap:wrap" >
+              <div class="col-7 blog-grid" >
+                  <h2>
+                      {{post.title}}
+                  </h2>
+                  <p style="font-size: 14px; ">{{post.content|safe|truncatewords_html:14}} <a href="{% url 'post-detail' post.slug %}"><button class="btn btn-small btn-dark">read more</button></a></p>
+
+                  <h6>Adam K. Raymond in GEN</h6>
+                  <p style="font-size: 14px;">an hour ago . 4 min read <i class="fa fa-star"
+                          style="font-size: 11px;"></i>
+                      <!-- <img src="assets/img/download.svg" alt="" height="25" width="25" class="pull-right"> -->
+                  </p>
+              </div>
+              <div class="col-5 blog-grid">
+                  {% if post.image %}
+                  <img src="{{post.image.url}}" class="card-img-top"  width="20%"  alt="...">
+                  {% else %}
+                  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.havi.com%2Fhavis-response-covid-19&psig=AOvVaw29hBNDoy7KSpNTW8mCzeFk&ust=1591865868995000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCODl79Hw9ukCFQAAAAAdAAAAABAJ"
+                      class="card-img-top" alt="...">
+                  {% endif %}
+              </div>
+          </div>
+          <hr>
+          {% endfor %}
+  </div>
+  <div style="width: 33%;">
+    <div   class="w3-card w3-margin">
+      <div class="w3-container w3-padding">
+          <h4>choose from your faveroute category</h4>
+      </div>
+      <div class="w3-container w3-white">
+          <p>
+              {% for cat in category %}
+
+              <a class="w3-tag w3-black w3-margin-bottom"
+                  href="{% url 'post_by_category' cat.id %}">{{cat.name}}</a>
+              {% endfor %}
+
+
+
+
+          </p>
+      </div>
+  </div>
+  <hr>
+    
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="contactUs">
+    <h1> Are you sure you want to delete blog: {{post.title}}</h1>
+
+
+    <a href="{% url 'post-detail' post.id %}"><button class="btn-primary"> Cancel</button></a>
+    <br>
+    <br>
+
+    <form class="contactUs-form" method='POST'>
+        {% csrf_token %} 
+    <br>
+      
+    <input class="btn-warning" type="submit" value="Submit">
+    </form>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+       <div class='signUp'>
+        <form class="signUp-form" method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+            {{form.errors}}
+            
+            
+            <!-- {% for x in form %}
+                <p>{{ x.label }}</p>
+                <p>{{ x }}</p>
+                <p>{{ x.errors }}</p>
+                 
+            {% endfor %} -->
+            <input type="submit" value="Submit">
+        </form>
+       </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% block extra_head %}
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+    body{
+        background-color:white;
+    }
+    .container{
+        margin-top: 5%;
+        font-family: 'Krona One', sans-serif;
+        padding-left: 8%;
+        padding-top: 10%;
+        padding-bottom: 5%;
+        background-color: white;
+        margin-bottom: 30px;
+    }
+
+@media only screen and (max-width: 600px){
+    .container{
+        padding-left: 8%;
+        padding-top: 15%;
+    }
+}
+
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div  class="container">
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Are you sure want to delete?</h1>
+            <hr>
+            <a href="{% url 'home' %}"><button type="button" class="btn btn-outline-warning">cancel</button></a>
+            <input class="btn btn-outline-danger" type="submit" value="delete">
+        </form>
+    </div>
+{% endblock %}

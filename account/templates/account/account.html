@@ -1,0 +1,46 @@
+{%extends  'blog/base.html' %}
+
+
+{% block content %}
+<div style="background-color: white; padding:3% 10% 3% 10%; margin:3% 7% 2% 7%;">
+<div style="display: flex; padding-top:15px;">
+       <div>
+        {% if user.pic %}
+        <img src="{{ user.pic.url }}"  width="150px" height="200px">
+        {% else %}
+        <img src="https://cdna.artstation.com/p/assets/images/images/009/048/744/large/rodion-vlasov-face1-2.jpg" width="150px" height="200px">
+        {% endif %}
+
+    </div>
+    <div style="padding-left:5%;">
+
+        <p style="font-weight: bold;">  <h2>About :</h2>      {{user.bio}}
+        </p>
+    </div>
+</div>
+    <hr>
+
+  
+    <div>
+
+ 
+        {% if user.is_authenticated %}
+        Username:
+        <h1>{{ user.username }}</h1><hr>
+       Name:
+        <h3>{{ user.FullName }}</h3><hr>
+        Email:
+        <h3>{{ user.email}}</h3><hr>
+        Age:
+        <h3>{{user.age}}</h3><hr>
+        Profession:
+        <h3>{{user.profession}}</h3><hr>
+        {% endif %}
+
+    </div>
+
+    
+    <a href="{% url 'profile_update' user.id %}"><h3><strong>update profile</strong></h3></a>
+  
+</div>
+{% endblock%}

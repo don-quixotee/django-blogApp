@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    {{form.media}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}myBlogger{% endblock %}</title>
+    <script src="https://use.fontawesome.com/057b1073e5.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="{% static 'blog/css/base.css' %}">
+
+{% block extra_head %}
+{% endblock %}
+
+</head>
+
+<body class="w3-light-grey" style="color: #fafafa;">
+
+
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-light secondary-color lighten-1" style="background-color: white;">
+        <a class="navbar-brand" href="{% url 'home' %}"><strong><h2>myBlogger</h2></strong></a>
+        <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'bookmark'%}">Bookmarks</a>
+                </li>
+                <li class="nav-item">
+                    
+                    <a class="nav-link" href="{% url 'profile' user.pk %}">Profile</a>
+                </li>
+
+
+                <form   class="form-inline my-2 my-lg-0" action="/search/" method="GET">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2  searchfield" type="search" name="query" placeholder="Search" aria-label="Search" required>
+                    <button class="btn btn-outline-dark my-2 my-sm-0 s" type="submit" value="Search">Search</button>
+                    {{form.errors}}
+                  </form>
+    
+              
+                {% endif %}
+                
+            </ul>
+
+
+          
+                
+          
+           
+            
+
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+
+
+
+               
+                {% if user.is_authenticated  %}
+               
+
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+
+                        {% if user.pic %}
+                        <img  src="{{user.pic.url}}"
+                            class="rounded-circle z-depth-0" width="42px" height="42px" alt="avatar image">
+
+                          {% else %}
+                          <img  src="https://cdna.artstation.com/p/assets/images/images/009/048/744/large/rodion-vlasov-face1-2.jpg"
+                            class="rounded-circle z-depth-0" width="42px" height="42px" alt="avatar image">
+
+                          
+                            {% endif %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+                        <a class="dropdown-item" href="{% url 'account' %}">Account</a>
+                        <a class="dropdown-item" href="{% url 'post' %}">write blog </a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">change password </a>
+
+                    </div>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{%  url 'login' %}"><button class="btn btn-dark">log-in</button> </a>
+                    <a href="{%  url 'signUp' %}"><button class="btn btn-dark">sign-up</button> </a>
+
+
+                </li>
+
+                {% endif %}
+
+
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    {% block content%}
+
+    {% endblock%}
+
+
+    <!-- Footer -->
+    <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+     <h3 style="color: white; text-align:center">developed by Abhishek singh</h3>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+
+                <div  class="col-md-10">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row header">
+                                <h5 style="font-weight: bold;"> &nbsp;&nbsp;&nbsp;&nbsp; Bookmarked blogs !</h5>
+                            </div>
+                            <hr class="space">
+
+
+
+                            {% for post in posts  %}
+
+
+                            <div  class="row news" style="display: flex; margin-bottom:10px;">
+                                <div  class="col-7 blog-grid">
+                                    <h2>
+                                        {{post.obj.title}}
+                                    </h2>
+                                    <a style="font-size: 14px; ">{{post.obj.content|safe|truncatewords_html:10}} <a
+                                            style="background-color: black; color:white;"
+                                            href="{% url 'post-detail' post.obj.slug %}">read more...</a></a>
+                                    <a>
+                                         by: {{post.obj.author}}
+                                    </a>
+                                    <a  href="{% url 'bookmarkDelete' post.id %}" style="font-size: 14px;"> <i class="fa fa-trash fa-2X"
+                                            style="font-size: 11px;"></i>
+                                        <!-- <img src="assets/img/download.svg" alt="" height="25" width="25" class="pull-right"> -->
+                                    </a>
+                                </div>
+                                <div  class="col-5 blog-grid">
+                                    {% if post.obj.image %}
+                                    <img  style="max-height: 200px; max-width: 200px;  margin:3%" src="{{post.obj.image.url}}" class="card-img-top" width="30%"    alt="...">
+                                    {% else %}
+                                    <img src="https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                                        class="card-img-top" alt="...">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            {% empty %}
+
+                        <div style="margin-bottom: 40%;">
+                            <h3> Oops! you haven't saved anything to read yet .</h3>
+                            <h5>click here to  start reading <a href="{% url 'home' %}"></a>  </h5>
+                            
+                        </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+
+                </div>
+            
+{% endblock %}
