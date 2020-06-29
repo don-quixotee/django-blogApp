@@ -90,11 +90,15 @@ DATABASES = {
         'NAME': 'blog',
         'USER':'admin1',
         'PASSWORD':'3311',
-        'HOST':'127.0.0.1',
+        'HOST':'localhost',
         'PORT':'5432',
 
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
 
 
 
@@ -142,6 +146,9 @@ STATICFILES_DIR = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
