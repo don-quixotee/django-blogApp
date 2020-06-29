@@ -5,6 +5,8 @@
 <div class="form-auth">
     <div style="padding-top: 2%; padding-bottom:2%;" class=" login-form">
         <form method="POST" enctype='multipart/form-data' >
+            {{form.group.label}}<br>
+            {{form.group}}<br>
             {{form.username.label}}<br>
             {{form.username}}<br>
             {{form.FullName.label}}<br>
@@ -19,6 +21,7 @@
             {{form.bio}}<br>
             {{form.pic.label}}<br>
             {{form.pic}}
+
             {% csrf_token %}
             <input class="btn btn-dark" type="submit" value="update">
         </form>
