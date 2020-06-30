@@ -96,5 +96,10 @@ class BookmarkPost(BookmarkBase):
     obj = models.ForeignKey(Post, verbose_name="Post", on_delete=models.CASCADE)
     def __str__(self):
         return self.obj.title
+    
+# class LikePost(BookmarkBase): 
+#     obj = models.ForeignKey(Post, verbose_name="Post", on_delete=models.CASCADE)
+#     def __str__(self):
+#         return self.obj.title
  
 
